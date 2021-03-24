@@ -31,10 +31,10 @@ public class UserDaoImp implements UserDao {
     @Override
     public User getCarOwner(String model, int series) {
         Query<Car> carQuery = sessionFactory.getCurrentSession().createQuery("from Car where model =: car_model and series =: car_series")
-                .setParameter("car_model",model)
-                .setParameter("car_series",series);
+                .setParameter("car_model", model)
+                .setParameter("car_series", series);
         List<Car> carList = carQuery.getResultList();
-        if (!carList.isEmpty()){
+        if (!carList.isEmpty()) {
             Car carFind = carList.get(0);
             List<User> userList = listUsers();
             User userFind = userList.stream()

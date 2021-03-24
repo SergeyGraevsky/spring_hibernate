@@ -70,7 +70,7 @@ public class Car {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int res = model.hashCode();
         res = 31 * res + series;
         return res;
