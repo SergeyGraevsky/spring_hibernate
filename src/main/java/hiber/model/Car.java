@@ -61,18 +61,4 @@ public class Car {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return model.equals(((Car) o).model) && series == ((Car) o).series;
-    }
-
-    @Override
-    public int hashCode() {
-        int res = model.hashCode();
-        res = 31 * res + series;
-        return res;
-    }
 }

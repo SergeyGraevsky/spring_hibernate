@@ -1,6 +1,5 @@
 package hiber.dao;
 
-import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -28,22 +27,12 @@ public class UserDaoImp implements UserDao {
         return query.getResultList();
     }
 
+    // Упростил метод getCarOwner
     @Override
     public User getCarOwner(String model, int series) {
-        Query<Car> carQuery = sessionFactory.getCurrentSession().createQuery("from Car where model =: car_model and series =: car_series")
+        Query<User> carQuery = sessionFactory.getCurrentSession().createQuery("select user from Car where model =: car_model and series =: car_series")
                 .setParameter("car_model", model)
                 .setParameter("car_series", series);
-        List<Car> carList = carQuery.getResultList();
-        if (!carList.isEmpty()) {
-            Car carFind = carList.get(0);
-            List<User> userList = listUsers();
-            User userFind = userList.stream()
-                    .filter(user -> user.getCar().equals(carFind))
-                    .findAny()//возвращает первый попавшийся элемент из Stream-a, в виде обертки Optional.
-                    .orElse(null);//возвращает объект по дефолту. срабатываeт в том случае, если объекта в полученном Optional не нашлось
-            return userFind;
-        }
-        return null;
+        return carQuery.getSingleResult();
     }
-
 }
